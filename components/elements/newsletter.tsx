@@ -2,23 +2,37 @@
 
 import { useState } from "react";
 import Button from "./button";
+import { useToast } from "@/hooks/use-toast";
 
-// interface RegisterNewsLetter {
-//   email?: string;
-// }
+interface RegisterNewsLetter {
+  email?: string;
+}
 
 const NewsLetter = () => {
-  const [email, setEmail] = useState("");
+  const { toast } = useToast();
+
+  const [registerNewsLetter, setRegisterNewsLetter] =
+    useState<RegisterNewsLetter>({
+      email: "",
+    });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setEmail(e.target.value);
+    const { name, value } = e.target;
+    setRegisterNewsLetter((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setEmail("");
+    toast({
+      title: "Subscribed!",
+      description: "You have successfully subscribed to our newsletter.",
+      duration: 3000,
+    });
+    setRegisterNewsLetter({
+      email: "",
+    });
   };
   return (
     <form onSubmit={handleSubmit} className="flex h-fit pt-6">
@@ -28,7 +42,7 @@ const NewsLetter = () => {
         name="email"
         placeholder="example@email.com"
         className="rounded-full px-4 py-4 mr-3 w-full border"
-        value={email}
+        value={registerNewsLetter.email}
         onChange={(e) => handleChange(e)}
         required
       />
