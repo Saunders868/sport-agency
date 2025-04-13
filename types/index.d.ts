@@ -66,3 +66,36 @@ declare interface HomepageData {
   faq: FAQData;
   rally: RallyData;
 }
+
+declare interface History {
+  excerpt: string;
+  heading: string;
+}
+
+declare interface AboutPageData {
+  title: string;
+  slug: string;
+  hero: HeroData;
+  history: {
+    heading: string;
+    tagline: string;
+    history: History[];
+  };
+}
+
+declare interface Facility {
+  image: string;
+  tagline: string;
+  heading: string;
+}
+
+declare interface FitnessPageData {
+  hero: HeroData;
+  title: string;
+  slug: string;
+  sectionHighlight: { heading: string; tagline: string };
+  facilities: {
+    heading: string;
+    ourFacilities: Facility[];
+  };
+}
