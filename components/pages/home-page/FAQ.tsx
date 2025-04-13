@@ -8,31 +8,34 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { faqs } from "@/data/mock.json";
 
-const FAQ = () => {
+const FAQ = ({ data }: { data: FAQData }) => {
   return (
     <Section className="bg-black">
       <Container>
         <div className="flex gap-12 sm:flex-row flex-col">
           <div className="text-white">
-            <h2 className="font-coolvetica text-section">FaQs</h2>
+            <h2 className="font-coolvetica text-section">
+              {data.heading || "FaQs"}
+            </h2>
             <p>
-              Can&apos;t find the answer you&apos;re looking for? Please chat to
-              our friendly team or write us an email at
+              {data.tagline ||
+                "Can't find the answer you're looking for? Please chat to our friendly team or write us an email at"}
             </p>
             <Link
-              href="mailto:saundersdaniel.coding@gmail.com"
+              href={
+                `mailto:${data.cta}` || "mailto:saundersdaniel.coding@gmail.com"
+              }
               className="text-highlight-green underline"
             >
-              saundersdaniel.coding@gmail.com
+              {data.cta || "saundersdaniel.coding@gmail.com"}
             </Link>
           </div>
           <Accordion type="single" collapsible className="w-full text-white">
-            {faqs.map((faq, index) => (
+            {data.faqs.map((faq: FAQ, index) => (
               <AccordionItem
                 key={index}
-                value={`item-${faq.id}`}
+                value={`item-${index}`}
                 className="border-highlight-green"
               >
                 <AccordionTrigger>{faq.question}</AccordionTrigger>

@@ -10,7 +10,7 @@ import Image from "next/image";
 import Button from "@/components/elements/button";
 gsap.registerPlugin(ScrollTrigger);
 
-const Rally = () => {
+const Rally = ({ data }: { data: RallyData }) => {
   const imageWrapRef = useRef(null);
   const imageRef = useRef(null);
 
@@ -43,14 +43,14 @@ const Rally = () => {
         >
           <Image
             ref={imageRef}
-            src={"/images/locations.jpg"}
+            src={data.image || "/images/locations.jpg"}
             alt="rally images"
             fill
             className="w-full h-full scale-150 duration-300"
           />
         </div>
         <Button color="secondary" fullWidth>
-          Join the Camp
+          {data.cta || "Join the camp"}
         </Button>
       </Container>
     </Section>

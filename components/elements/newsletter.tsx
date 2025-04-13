@@ -8,7 +8,7 @@ interface RegisterNewsLetter {
   email?: string;
 }
 
-const NewsLetter = () => {
+const NewsLetter = ({ text }: { text: string }) => {
   const { toast } = useToast();
 
   const [registerNewsLetter, setRegisterNewsLetter] =
@@ -46,7 +46,7 @@ const NewsLetter = () => {
         onChange={(e) => handleChange(e)}
         required
       />
-      <Button onClick={() => handleSubmit}>Subscribe</Button>
+      <Button onClick={() => handleSubmit}>{text || "Subscribe"}</Button>
     </form>
   );
 };
