@@ -57,3 +57,27 @@ export async function getFitnessPage() {
     revalidate: new Date().getSeconds(),
   });
 }
+
+export async function getContactPage() {
+  const getPageQuery = groq`*[_type == 'page'][slug == 'contact'][0] {
+    title,
+    slug,
+    'hero': pageBuilder[][_type == 'hero'][0] {
+      'heroImage': image.asset->url,
+      tagline,
+      heading,
+      slug
+    },
+    'social': pageBuilder[][_type == 'socials'][0] {
+      heading,
+      'socials': ourSocials[] {
+        heading,
+        cta
+      }
+    }
+  }`;
+
+  return await client.fetch(getPageQuery, {
+    revalidate: new Date().getSeconds(),
+  });
+}

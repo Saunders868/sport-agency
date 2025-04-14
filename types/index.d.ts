@@ -99,3 +99,13 @@ declare interface FitnessPageData {
     ourFacilities: Facility[];
   };
 }
+
+declare interface ContactPageData {
+  title: string;
+  slug: string;
+  hero: HeroData;
+  social: {
+    heading: string;
+    socials: { heading: string; cta: string }[];
+  };
+}
