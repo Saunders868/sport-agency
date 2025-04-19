@@ -11,7 +11,7 @@ const Register = ({ data }: { data: NewsLetterData }) => {
         </h2>
         <div className="flex flex-col gap-3">
           <p className="text-white/60">{data.tagline || "Stay up to date"}</p>
-          <NewsLetter text={data.cta} />
+          <NewsLetter />
         </div>
       </Container>
     </Section>

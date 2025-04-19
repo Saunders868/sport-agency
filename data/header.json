@@ -1,11 +1,9 @@
 {
-  "header": {
-    "menuItems": [
-      { "label": "Locations", "url": "/locations" },
-      { "label": "Fitness", "url": "/fitness" },
-      { "label": "Sport Website", "url": "/" },
-      { "label": "About", "url": "/about-us" },
-      { "label": "Contact", "url": "/contact" }
-    ]
-  }
+  "menuItems": [
+    { "label": "Locations", "url": "/locations" },
+    { "label": "Fitness", "url": "/fitness" },
+    { "label": "Sport Website", "url": "/" },
+    { "label": "About", "url": "/about-us" },
+    { "label": "Contact", "url": "/contact" }
+  ]
 }

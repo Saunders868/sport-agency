@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { footer } from "@/data/mock.json";
+import data from "@/data/mock.json";
 import cx from "classnames";
 import Section from "./section";
 import NewsLetter from "../elements/newsletter";
@@ -24,7 +24,7 @@ const Footer = () => {
                 "flex top-0 gap-6 right-0  bg-white duration-150 w-full"
               )}
             >
-              {footer.menuItems.map((item, index) => (
+              {data.footer.menuItems.map((item, index) => (
                 <li
                   key={index}
                   className="flex items-center group py-6 justify-center tracking-tighter relative text-sub-title"

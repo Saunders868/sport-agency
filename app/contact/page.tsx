@@ -8,7 +8,6 @@ import React from "react";
 
 const Page = async () => {
   const data: ContactPageData = await getContactPage();
-  console.log(data.social.socials);
 
   return (
     <Section className="sm:py-0 overflow-hidden">

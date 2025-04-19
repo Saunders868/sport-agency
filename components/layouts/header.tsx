@@ -1,6 +1,6 @@
 "use client";
 
-import { header } from "@/data/header.json";
+import header from "@/data/header.json";
 import cx from "classnames";
 import Link from "next/link";
 import { useEffect, useState } from "react";
