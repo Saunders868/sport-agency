@@ -3,14 +3,15 @@
 import { useState } from "react";
 import Button from "./button";
 import { useToast } from "@/hooks/use-toast";
+import { cx } from "class-variance-authority";
 
 interface RegisterNewsLetter {
   email?: string;
 }
 
-const NewsLetter = ({ text }: { text: string }) => {
+const NewsLetter = () => {
   const { toast } = useToast();
-
+  const [isLoading, setIsLoading] = useState(false);
   const [registerNewsLetter, setRegisterNewsLetter] =
     useState<RegisterNewsLetter>({
       email: "",
@@ -23,8 +24,21 @@ const NewsLetter = ({ text }: { text: string }) => {
     setRegisterNewsLetter((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+
+    await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: registerNewsLetter.email,
+      }),
+    });
+    setIsLoading(false);
+
     toast({
       title: "Subscribed!",
       description: "You have successfully subscribed to our newsletter.",
@@ -46,7 +60,12 @@ const NewsLetter = ({ text }: { text: string }) => {
         onChange={(e) => handleChange(e)}
         required
       />
-      <Button onClick={() => handleSubmit}>{text || "Subscribe"}</Button>
+      <Button
+        onClick={() => handleSubmit}
+        className={cx("text-sm", isLoading === true && "cursor-not-allowed")}
+      >
+        {isLoading ? "Subcribing" : "Subcribe"}
+      </Button>
     </form>
   );
 };

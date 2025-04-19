@@ -15,7 +15,7 @@ interface FormData {
 
 const Form: React.FC<FormData> = () => {
   const { toast } = useToast();
-
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -31,15 +31,30 @@ const Form: React.FC<FormData> = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+    setIsLoading(true);
+
+    await fetch("/api/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        subject: "You have a new message from your website",
+        message: formData.message,
+        name: formData.lastName,
+      }),
+    });
 
     toast({
       title: "Message Sent!",
       description: "Thank you for contacting us! We will get back to you soon.",
       duration: 6000,
     });
+
+    setIsLoading(false);
 
     setFormData({
       firstName: "",
@@ -124,13 +139,13 @@ const Form: React.FC<FormData> = () => {
       </label>
       <Button
         onClick={() => handleSubmit}
-        className={cx("uppercase font-light col-span-2 py-4 mt-5")}
+        className={cx(
+          "uppercase font-light col-span-2 py-4 mt-5",
+          isLoading === true && "cursor-not-allowed"
+        )}
       >
-        Send Message
+        {isLoading ? "Sending" : "Send Message"}
       </Button>
-      {/* <Button onClick={() => handleSubmit} className={cx("uppercase font-light col-span-2 py-4 mt-5", isLoading === true && "cursor-not-allowed")}>
-            {isLoading ? "Sending" : "Send Message"}
-        </Button> */}
     </form>
   );
 };
